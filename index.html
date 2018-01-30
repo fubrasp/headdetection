@@ -22,9 +22,17 @@
     <p>Status : <span id='headtrackerMessage'></span></p>
 
     <button id="capture">Capture</button>
+    <select id="css-filters">
+        <option value="none">normal</option>
+        <option value="grayscale(50)">gray</option>
+        <option value="opacity(50)">opacity</option>
+        <option value="saturate(50)">saturate</option>
+        <option value="sepia(50)">sepia</option>
+    </select>
 
     <div id="output"></div>
 </div>
+
 
 <script type="text/javascript" src="js/headtracker-script.js"></script>
 

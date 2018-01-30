@@ -23,6 +23,11 @@ document.addEventListener("facetrackingEvent", function( event ) {
     var messagep = document.getElementById('headtrackerMessage');
     messagep.innerHTML="position: ("+ event.x+","+event.y+ ") - h:"+event.height+ ", w:" + event.width; });
 
+select = document.getElementById('css-filters'); // or in jQuery use: select = this;
+select.addEventListener('change', function () {
+    cnv.style.filter = select.value
+});
+
 (function() {
     "use strict";
 
@@ -39,9 +44,12 @@ document.addEventListener("facetrackingEvent", function( event ) {
 
         var img = document.createElement("img");
         img.src = cnv.toDataURL();
+        img.style.filter = $("#css-filters").val();
         $output.prepend(img);
     };
 
     $(initialize);
 
 }());
+
+
