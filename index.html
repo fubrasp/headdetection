@@ -8,57 +8,86 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>TP détection de visage et masque</h1>
-<h2>BERTRAND Guillaume (M2 MIAGE SID)</h2>
 <div>
     <canvas id="inputCanvas" width="320" height="240" style="display:none"></canvas>
+</div>
+
+<div id="commands">
+    <h1>TP détection de visage et masque</h1>
+    <h2>BERTRAND Guillaume (M2 MIAGE SID)</h2>
+
     <img id="picture" src=""/>
     <video id="inputVideo" autoplay loop></video>
+    <p id='gUMMessage'></p>
+    <p>Status : <span id='headtrackerMessage'></span></p>
 
     <button id="capture">Capture</button>
 
     <div id="output"></div>
 </div>
 
-    <script type="text/javascript">
-        var videoInput = document.getElementById('inputVideo');
-        var canvasInput = document.getElementById('inputCanvas');
+<script type="text/javascript">
 
-        var htracker = new headtrackr.Tracker();
-        htracker.init(videoInput, canvasInput);
-        htracker.start();
-        htracker.
-    </script>
+    var videoInput = document.getElementById('inputVideo');
+    var cnv = document.getElementById('inputCanvas')
+    var ctx = cnv.getContext('2d');
+    cnv.style.position = "absolute";
+    cnv.style.top = '0px';
+    cnv.style.zIndex = '100001';
+    cnv.style.display = 'block';
+    document.addEventListener("headtrackrStatus", function(event) {
+        var messagep = document.getElementById('headtrackerMessage');
+        messagep.innerHTML =" >> "+ event.status ;
+    }, true);
 
-    <script>
-        (function() {
-            "use strict";
+    var htracker = new headtrackr.Tracker( );
+    htracker.init(videoInput, cnv);
+    htracker.start();
+    document.addEventListener("facetrackingEvent", function( event ) {
+        //ctx.clearRect(0,0,320,240);
+        //ctx.strokeStyle = "#00CC00";
+        //ctx.fillStyle = "rgb(200,0,0)";
+        //ctx.fillRect (event.x, event.y, 10, 10);
+        //ctx.strokeRect(event.x-(event.width/2),
+        //    event.y -(event.height/2) , event.width, event.height);
 
-            var video, $output;
-            var scale = 0.25;
+        var imgFace = new Image();
+        imgFace.src = 'images/ours.jpg';
+        ctx.drawImage(imgFace, event.x-100, event.y-120);
 
-            var initialize = function() {
-                $output = $("#output");
-                video = $("#inputVideo").get(0);
-                $("#capture").click(captureImage);
-            };
+        var messagep = document.getElementById('headtrackerMessage');
+        messagep.innerHTML="position: ("+ event.x+","+event.y+ ") - h:"+event.height+ ", w:" + event.width; });
+</script>
 
-            var captureImage = function() {
-                var canvas = document.createElement("canvas");
-                canvas.width = video.videoWidth * scale;
-                canvas.height = video.videoHeight * scale;
-                canvas.getContext('2d')
-                    .drawImage(video, 0, 0, canvas.width, canvas.height);
+<script>
+    (function() {
+        "use strict";
 
-                var img = document.createElement("img");
-                img.src = canvas.toDataURL();
-                $output.prepend(img);
-            };
+        var video, $output;
+        var scale = 0.25;
 
-            $(initialize);
+        var initialize = function() {
+            $output = $("#output");
+            video = $("#inputVideo").get(0);
+            $("#capture").click(captureImage);
+        };
 
-        }());
-    </script>
+        var captureImage = function() {
+            var canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth * scale;
+            canvas.height = video.videoHeight * scale;
+            canvas.getContext('2d')
+                .drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            var img = document.createElement("img");
+            img.src = canvas.toDataURL();
+            $output.prepend(img);
+        };
+
+        $(initialize);
+
+    }());
+</script>
 
 
 </body>

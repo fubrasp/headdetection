@@ -7,3 +7,13 @@ h1, h2{
     color: darkseagreen;
     font-family: "Lucida Grande",Monaco, ".SF NS Display";
 }
+
+video{
+    display: none;
+    width:320px;
+    height:240px;
+}
+
+#commands{
+    margin-top: 25%;
+}
