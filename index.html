@@ -26,69 +26,7 @@
     <div id="output"></div>
 </div>
 
-<script type="text/javascript">
-
-    var videoInput = document.getElementById('inputVideo');
-    var cnv = document.getElementById('inputCanvas')
-    var ctx = cnv.getContext('2d');
-    cnv.style.position = "absolute";
-    cnv.style.top = '0px';
-    cnv.style.zIndex = '100001';
-    cnv.style.display = 'block';
-    document.addEventListener("headtrackrStatus", function(event) {
-        var messagep = document.getElementById('headtrackerMessage');
-        messagep.innerHTML =" >> "+ event.status ;
-    }, true);
-
-    var htracker = new headtrackr.Tracker( );
-    htracker.init(videoInput, cnv);
-    htracker.start();
-    document.addEventListener("facetrackingEvent", function( event ) {
-        //ctx.clearRect(0,0,320,240);
-        //ctx.strokeStyle = "#00CC00";
-        //ctx.fillStyle = "rgb(200,0,0)";
-        //ctx.fillRect (event.x, event.y, 10, 10);
-        //ctx.strokeRect(event.x-(event.width/2),
-        //    event.y -(event.height/2) , event.width, event.height);
-
-        var imgFace = new Image();
-        imgFace.src = 'images/ours.jpg';
-        ctx.drawImage(imgFace, event.x-100, event.y-120);
-
-        var messagep = document.getElementById('headtrackerMessage');
-        messagep.innerHTML="position: ("+ event.x+","+event.y+ ") - h:"+event.height+ ", w:" + event.width; });
-</script>
-
-<script>
-    (function() {
-        "use strict";
-
-        var video, $output;
-        var scale = 0.25;
-
-        var initialize = function() {
-            $output = $("#output");
-            video = $("#inputVideo").get(0);
-            $("#capture").click(captureImage);
-        };
-
-        var captureImage = function() {
-            var canvas = document.createElement("canvas");
-            canvas.width = video.videoWidth * scale;
-            canvas.height = video.videoHeight * scale;
-            canvas.getContext('2d')
-                .drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            var img = document.createElement("img");
-            img.src = canvas.toDataURL();
-            $output.prepend(img);
-        };
-
-        $(initialize);
-
-    }());
-</script>
-
+<script type="text/javascript" src="js/headtracker-script.js"></script>
 
 </body>
 </html>
