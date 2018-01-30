@@ -1,0 +1,9 @@
+#output{
+    width: 300px;
+    height: 300px;
+}
+
+h1, h2{
+    color: darkseagreen;
+    font-family: "Lucida Grande",Monaco, ".SF NS Display";
+}

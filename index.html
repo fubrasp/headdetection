@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Head tracking BERTRAND Guillaume</title>
+    <script type="application/javascript" src="headtrackr-dev/headtrackr.js"></script>
+    <script type="application/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1>TP détection de visage et masque</h1>
+<h2>BERTRAND Guillaume (M2 MIAGE SID)</h2>
+<div>
+    <canvas id="inputCanvas" width="320" height="240" style="display:none"></canvas>
+    <img id="picture" src=""/>
+    <video id="inputVideo" autoplay loop></video>
+
+    <button id="capture">Capture</button>
+
+    <div id="output"></div>
+</div>
+
+    <script type="text/javascript">
+        var videoInput = document.getElementById('inputVideo');
+        var canvasInput = document.getElementById('inputCanvas');
+
+        var htracker = new headtrackr.Tracker();
+        htracker.init(videoInput, canvasInput);
+        htracker.start();
+        htracker.
+    </script>
+
+    <script>
+        (function() {
+            "use strict";
+
+            var video, $output;
+            var scale = 0.25;
+
+            var initialize = function() {
+                $output = $("#output");
+                video = $("#inputVideo").get(0);
+                $("#capture").click(captureImage);
+            };
+
+            var captureImage = function() {
+                var canvas = document.createElement("canvas");
+                canvas.width = video.videoWidth * scale;
+                canvas.height = video.videoHeight * scale;
+                canvas.getContext('2d')
+                    .drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                var img = document.createElement("img");
+                img.src = canvas.toDataURL();
+                $output.prepend(img);
+            };
+
+            $(initialize);
+
+        }());
+    </script>
+
+
+</body>
+</html>
